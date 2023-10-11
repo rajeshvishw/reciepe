@@ -29,7 +29,7 @@ def registerView(request):
 
     return render(request, "register.html")
 
-# djagno authentication module
+# djagno authentication login
 from django.contrib.auth import authenticate,login
 from django.shortcuts import redirect
 def loginView(request):
