@@ -3,6 +3,8 @@ from .models import reciepe_model
 from django.http import HttpResponse
 from .models import URLHitCount
 
+#iska use karne pe hamare url ko vahi use kar paega jo login hoga 
+from django.contrib.auth.decorators import login_required
 
 # register 
 from django.contrib.auth.models import User
@@ -46,7 +48,15 @@ def loginView(request):
         return redirect("form")
     return render(request,"login.html")
 
+#logout 
+from django.contrib.auth import logout 
+def logoutView(request):
+    logout(request)
+    return redirect("/login/")
+    
+
 #get
+@login_required(login_url="/login/")
 def formView(request):
     if request.method.lower() == "get":
         #hit count
@@ -56,7 +66,9 @@ def formView(request):
         url_hit_count.save()
         #------------        
         return render(request, "index.html")
+
 #post
+@login_required(login_url="/login/")
 def reciepepostView(request):
     if request.method == "POST":
         name = request.POST['name'] if  request.POST['name']!="" else ""
@@ -69,12 +81,14 @@ def reciepepostView(request):
 
 #search
 from django.db.models import Q
+@login_required(login_url="/login/")
 def searchView(request):
     search_value = request.POST.get('search')
     data = reciepe_model.objects.filter(Q(name__icontains = search_value) | Q(price__icontains=search_value) | Q(description__icontains=search_value)).order_by('-id')
     return render(request,"index.html",{"data":data})
 
 # price range
+@login_required(login_url="/login/")
 def pricerenageView(request):
     min_value = request.POST['min_value'] if request.POST['min_value'] !="" else 0
     max_value = request.POST['max_value'] if request.POST['max_value'] !="" else 0

@@ -11,7 +11,8 @@ urlpatterns = [
     path("form/",views.formView,name="form"),
     path("submit/",views.reciepepostView,name="savedata"),
     path("search/",views.searchView,name="search_value"),
-    path("pricerenageView",views.pricerenageView, name= "pricerenageView")
+    path("pricerenageView",views.pricerenageView, name= "pricerenageView"),
+    path("logout/",views.logout,name="logout")
 ]
 
 if settings.DEBUG:
