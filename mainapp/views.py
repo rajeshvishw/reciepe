@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 def registerView(request):
     print(request.method)
- 
+    #this iis jflkdsajfdlajfaj;flkdajfljdalkfdajklfadssjfdlk
     if request.method == "POST":
         first_name = request.POST['firstname']
         last_name = request.POST['lastname']
